@@ -35,7 +35,13 @@ export interface PieProps {
   subTitle?: React.ReactNode;
 }
 interface PieState {
-  legendData: { checked: boolean; x: string; color: string; percent: number; y: string }[];
+  legendData: {
+    checked: boolean;
+    x: string;
+    color: string;
+    percent: number;
+    y: string;
+  }[];
   legendBlock: boolean;
 }
 class Pie extends Component<PieProps, PieState> {
@@ -81,7 +87,7 @@ class Pie extends Component<PieProps, PieState> {
       () => {
         this.requestRef = requestAnimationFrame(() => this.resize());
       },
-      { passive: true },
+      { passive: true }
     );
   }
 
@@ -144,10 +150,15 @@ class Pie extends Component<PieProps, PieState> {
     const { legendData } = this.state;
     legendData[i] = newItem;
 
-    const filteredLegendData = legendData.filter((l) => l.checked).map((l) => l.x);
+    const filteredLegendData = legendData
+      .filter((l) => l.checked)
+      .map((l) => l.x);
 
     if (this.chart) {
-      this.chart.filter('x', (val) => filteredLegendData.indexOf(`${val}`) > -1);
+      this.chart.filter(
+        'x',
+        (val) => filteredLegendData.indexOf(`${val}`) > -1
+      );
     }
 
     this.setState({
@@ -227,7 +238,10 @@ class Pie extends Component<PieProps, PieState> {
       ];
     }
 
-    const tooltipFormat: [string, (...args: any[]) => { name?: string; value: string }] = [
+    const tooltipFormat: [
+      string,
+      (...args: any[]) => { name?: string; value: string }
+    ] = [
       'x*percent',
       (x: string, p: number) => ({
         name: x,
@@ -265,18 +279,25 @@ class Pie extends Component<PieProps, PieState> {
                 tooltip={tooltip ? tooltipFormat : undefined}
                 type="intervalStack"
                 position="percent"
-                color={['x', percent || percent === 0 ? formatColor : defaultColors] as any}
+                color={
+                  [
+                    'x',
+                    percent || percent === 0 ? formatColor : defaultColors,
+                  ] as any
+                }
                 selected={selected}
               />
             </Chart>
 
             {(subTitle || total) && (
               <div className={styles.total}>
-                {subTitle && <h4 className="pie-sub-title">{subTitle}</h4>}
                 {/* eslint-disable-next-line */}
                 {total && (
-                  <div className="pie-stat">{typeof total === 'function' ? total() : total}</div>
+                  <div className="pie-stat">
+                    {typeof total === 'function' ? total() : total}
+                  </div>
                 )}
+                {subTitle && <h4 className="pie-sub-title">{subTitle}</h4>}
               </div>
             )}
           </div>
@@ -295,9 +316,14 @@ class Pie extends Component<PieProps, PieState> {
                 <span className={styles.legendTitle}>{item.x}</span>
                 <Divider type="vertical" />
                 <span className={styles.percent}>
-                  {`${(Number.isNaN(item.percent) ? 0 : item.percent * 100).toFixed(2)}%`}
+                  {`${(Number.isNaN(item.percent)
+                    ? 0
+                    : item.percent * 100
+                  ).toFixed(2)}%`}
                 </span>
-                <span className={styles.value}>{valueFormat ? valueFormat(item.y) : item.y}</span>
+                <span className={styles.value}>
+                  {valueFormat ? valueFormat(item.y) : item.y}
+                </span>
               </li>
             ))}
           </ul>

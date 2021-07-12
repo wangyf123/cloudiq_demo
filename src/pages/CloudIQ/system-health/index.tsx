@@ -253,8 +253,11 @@ class Monitor extends Component<MonitorProps> {
                       </div>
                     }
                     bordered={true}
-                    style={{ height: 320 }}
+                    style={{ height: 320, cursor: 'pointer' }}
                     className={styles.pieCard}
+                    onClick={() => {
+                      window.location.href = '/health/detail';
+                    }}
                   >
                     <Row>
                       <Col span={12}>
