@@ -256,6 +256,7 @@ class Advanced extends Component<
   }
 
   onOperationTabChange = (key: string) => {
+    console.log('key: ', key);
     this.setState({ operationKey: key });
   };
 
@@ -642,6 +643,9 @@ class Advanced extends Component<
               bordered={false}
               tabList={operationTabList}
               onTabChange={this.onOperationTabChange}
+              bodyStyle={{
+                padding: operationKey === 'tab1' ? '24px' : 0,
+              }}
             >
               {contentList[operationKey]}
             </Card>
