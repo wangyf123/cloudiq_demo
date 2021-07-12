@@ -12,8 +12,7 @@ import {
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
 import React, { Component } from 'react';
-import { FilterOutlined, CheckOutlined } from '@ant-design/icons';
-import { GridContent } from '@ant-design/pro-layout';
+import { CheckOutlined } from '@ant-design/icons';
 import type { StateType } from './model';
 import { Pie } from './components/Charts';
 import ComponentIssueIcon from './components/Icons/ComponentIssueIcon';
@@ -21,6 +20,7 @@ import ConfigurationIssueIcon from './components/Icons/ConfigurationIssueIcon';
 import CapacityIssueIcon from './components/Icons/CapacityIssueIcon';
 import PerformanceIssueIcon from './components/Icons/PerformanceIssueIcon';
 import DataProtectionIssueIcon from './components/Icons/DataProtectionIssueIcon';
+import { PageContainer } from '@ant-design/pro-layout';
 
 import styles from './style.less';
 
@@ -131,14 +131,15 @@ class Monitor extends Component<MonitorProps> {
 
   render() {
     return (
-      <GridContent>
+      <PageContainer>
         <React.Fragment>
-          <Typography.Title level={3}>System Health</Typography.Title>
-          <a style={{ float: 'right', marginTop: 10 }}>
-            <Space>Go To APEX SUPPORT</Space>
-          </a>
+          <div style={{ textAlign: 'right' }}>
+            <a>
+              <Space>Go To APEX SUPPORT</Space>
+            </a>
+          </div>
           <Alert
-            style={{ marginTop: 50, borderColor: '#0672CB', borderRadius: 4 }}
+            style={{ borderColor: '#0672CB', borderRadius: 4 }}
             message={
               <Typography.Title style={{ color: '#0076CE' }} level={3}>
                 Introducing your CloudIQ Health Score.
@@ -478,7 +479,7 @@ class Monitor extends Component<MonitorProps> {
             </Row>
           </Card>
         </React.Fragment>
-      </GridContent>
+      </PageContainer>
     );
   }
 }

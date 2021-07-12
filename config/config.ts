@@ -43,7 +43,7 @@ export default defineConfig({
               path: '/CloudIQ',
               icon: 'AppstoreOutlined',
               name: 'Overview',
-              component: './CloudIQ/system-health',
+              component: './CloudIQ/overview',
             },
             {
               icon: 'FundOutlined',

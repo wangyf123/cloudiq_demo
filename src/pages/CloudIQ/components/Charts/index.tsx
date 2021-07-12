@@ -10,6 +10,7 @@ import Pie from './Pie';
 import TagCloud from './TagCloud';
 import TimelineChart from './TimelineChart';
 import WaterWave from './WaterWave';
+import Doubleaxes from './Doubleaxes';
 
 const yuan = (val: number | string) => `¥ ${numeral(val).format('0,0')}`;
 
@@ -26,6 +27,7 @@ const Charts = {
   WaterWave,
   TagCloud,
   TimelineChart,
+  Doubleaxes,
 };
 
 export {
@@ -42,4 +44,5 @@ export {
   WaterWave,
   TagCloud,
   TimelineChart,
+  Charts,
 };
