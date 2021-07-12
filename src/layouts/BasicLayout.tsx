@@ -17,7 +17,7 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import type { ConnectState } from '@/models/connect';
 import { getMatchMenu } from '@umijs/route-utils';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 import './basiclayout.less'
 
 const noMatch = (
@@ -166,6 +166,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           menuDataRef.current = menuData || [];
           return menuData || [];
         }}
+        title={null}
       >
         <Authorized authority={authorized!.authority} noMatch={noMatch}>
           {children}

@@ -2,7 +2,6 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-import { SafetyCertificateOutlined, SyncOutlined, ScheduleOutlined, SettingOutlined, Icon, BarChartOutlined, AppstoreOutlined, FundOutlined, CheckCircleOutlined, InfoCircleOutlined, UserOutlined, HomeOutlined, PayCircleOutlined, DatabaseOutlined, FileOutlined, ReadOutlined } from '@ant-design/icons';
 
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
