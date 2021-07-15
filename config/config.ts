@@ -71,7 +71,13 @@ export default defineConfig({
                   name: 'System Updates',
                 },
                 {
-                  path: '/health/detail',
+                  path: '/health/file_detail',
+                  name: 'File Detail',
+                  component: './CloudIQ/file_detail',
+                  hideInMenu: true,
+                },
+                {
+                  path: '/health/block_detail',
                   name: 'Detail',
                   component: './CloudIQ/detail',
                   hideInMenu: true,
