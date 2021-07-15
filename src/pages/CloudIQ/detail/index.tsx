@@ -13,6 +13,7 @@ import React, { Component } from 'react';
 import { Pie } from './components/Charts';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
+import { CheckOutlined } from '@ant-design/icons';
 import type { AdvancedProfileData } from './data.d';
 import styles from './style.less';
 import OfflineDataBack from '../components/OfflineDataBack';
@@ -491,32 +492,39 @@ class Advanced extends Component<
     const contentList = {
       tab1: (
         <>
-          <Typography.Title level={3}>
-            Capacity is the top health check category impacting
-            APEX-Block-Boston's health score.
-          </Typography.Title>
-          <div style={{ width: 170, marginLeft: -30 }}>
-            <Pie
-              animate={false}
-              color="#6EA204"
-              percent={95}
-              total={
-                <Typography.Title level={1} style={{ color: '#6EA204' }}>
-                  {queryString.parse(window.location.search).name ==
-                  'APEX-File-Austin'
-                    ? 100
-                    : 95}
-                </Typography.Title>
-              }
-              subTitle={
-                <Typography.Text strong={true} style={{ color: '#6EA204' }}>
-                  GOOD
-                </Typography.Text>
-              }
-              style={{ marginTop: 20 }}
-              height={150}
-              lineWidth={8}
-            />
+          <div
+            style={{
+              marginLeft: -30,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ width: 170, marginRight: 50 }}>
+              <Pie
+                animate={false}
+                color="#6EA204"
+                percent={95}
+                total={
+                  <Typography.Title level={1} style={{ color: '#6EA204' }}>
+                    {queryString.parse(window.location.search).name ==
+                    'APEX-File-Austin'
+                      ? 100
+                      : 95}
+                  </Typography.Title>
+                }
+                subTitle={
+                  <Typography.Text strong={true} style={{ color: '#6EA204' }}>
+                    GOOD
+                  </Typography.Text>
+                }
+                style={{ marginTop: 20 }}
+                height={150}
+                lineWidth={8}
+              />
+            </div>
+            <Typography.Title level={4} style={{ margin: 0 }}>
+              APEX-File-Austin is at full health
+            </Typography.Title>
           </div>
 
           <Typography.Title level={4}>Health Issues</Typography.Title>
@@ -532,21 +540,25 @@ class Advanced extends Component<
             </Col>
             <Col span={18}>
               <Card
-                title="Capacity"
+                title="Total"
                 headStyle={{ background: '#6EA204', color: '#ffffff' }}
                 style={{ borderRadius: 4 }}
               >
-                <Typography.Paragraph>
-                  about 6 hours ago The Cluster 'FNM00183501337' is predicted to
-                  run out of space within a quarter.
-                </Typography.Paragraph>
-                <Typography.Text type="secondary">-5</Typography.Text>
-                <Divider />
-                <Typography.Paragraph>Resolution:</Typography.Paragraph>
-                <Typography.Text type="secondary">
-                  This information has been sent to the DTMS Account Team, and
-                  they will reach out to you should any action be required.
-                </Typography.Text>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: 78,
+                  }}
+                >
+                  <Typography.Text
+                    style={{ color: '#6EA201', marginBottom: 30 }}
+                  >
+                    All health checks were successfui
+                  </Typography.Text>
+                  <CheckOutlined style={{ color: '#6EA201', fontSize: 14 }} />
+                </div>
               </Card>
             </Col>
           </Row>

@@ -39,8 +39,8 @@ const cardData = [
     healthScore: 95,
     configurationImpact: 0,
     configurationIssueCount: 0,
-    capacityImpact: -5,
-    capacityIssueCount: 1,
+    capacityImpact: 0,
+    capacityIssueCount: 0,
     performanceImpact: 0,
     performanceIssueCount: 0,
     dataProtectionImpact: 0,
@@ -78,9 +78,9 @@ const cardData = [
     serialNumber: '95148',
     displayIdentifier: '95148',
     healthState: { raw: 'GOOD', text: 'Good' },
-    systemHealthImpact: 0,
-    systemHealthIssueCount: 0,
-    healthScore: 100,
+    systemHealthImpact: -20,
+    systemHealthIssueCount: 1,
+    healthScore: 60,
     configurationImpact: 0,
     configurationIssueCount: 0,
     capacityImpact: 0,
@@ -102,11 +102,11 @@ const cardData = [
     healthState: { raw: 'GOOD', text: 'Good' },
     systemHealthImpact: 0,
     systemHealthIssueCount: 0,
-    healthScore: 100,
-    configurationImpact: 0,
-    configurationIssueCount: 0,
-    capacityImpact: 0,
-    capacityIssueCount: 0,
+    healthScore: 80,
+    configurationImpact: -10,
+    configurationIssueCount: 1,
+    capacityImpact: -30,
+    capacityIssueCount: 1,
     performanceImpact: 0,
     performanceIssueCount: 0,
     dataProtectionImpact: 0,
@@ -138,67 +138,81 @@ class Monitor extends Component<MonitorProps> {
               <Space>Go To APEX SUPPORT</Space>
             </a>
           </div>
-          <Alert
-            style={{ borderColor: '#0672CB', borderRadius: 4 }}
-            message={
-              <Typography.Title style={{ color: '#0076CE' }} level={3}>
-                Introducing your CloudIQ Health Score.
-              </Typography.Title>
-            }
-            description={
-              <>
-                <div>
-                  Below is an overview of your system’s health. Click on View
-                  Health Details for more comprehensive details on system health
-                  scores and performance data.
-                </div>
-                <div
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <Space style={{ marginTop: 30 }}>
-                    <>
-                      <div
-                        style={{ width: 10, height: 10, background: '#FB6E6E' }}
-                      />
-                      <Typography.Text style={{ color: '#FB6E6E' }}>
-                        Good 95-100
-                      </Typography.Text>
-                    </>
-                    <>
-                      <div
-                        style={{ width: 10, height: 10, background: '#FBCA6E' }}
-                      />
-                      <Typography.Text style={{ color: '#FBCA6E' }}>
-                        FAIR 71-94
-                      </Typography.Text>
-                    </>
-                    <>
-                      <div
-                        style={{ width: 10, height: 10, background: '#30B915' }}
-                      />
-                      <Typography.Text style={{ color: '#30B915' }}>
-                        POOR 0-70
-                      </Typography.Text>
-                    </>
-                  </Space>
-                  <Space
-                    style={{
-                      marginTop: 30,
-                      marginLeft: 'auto',
-                      marginRight: 0,
-                    }}
+          <div style={{ paddingLeft: 24 }}>
+            <Alert
+              style={{ borderColor: '#0672CB', borderRadius: 4 }}
+              message={
+                <Typography.Title style={{ color: '#0076c1' }} level={3}>
+                  Introducing your CloudIQ Health Score.
+                </Typography.Title>
+              }
+              description={
+                <>
+                  <div>
+                    Below is an overview of your system’s health. Click on View
+                    Health Details for more comprehensive details on system
+                    health scores and performance data.
+                  </div>
+                  <div
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
                   >
-                    <Checkbox>Don't show again</Checkbox>
-                    <a style={{ marginLeft: 'auto', marginRight: 0 }}>
-                      LEARN MORE
-                    </a>
-                  </Space>
-                </div>
-              </>
-            }
-            type="info"
-            closable
-          />
+                    <Space style={{ marginTop: 30 }}>
+                      <>
+                        <div
+                          style={{
+                            width: 10,
+                            height: 10,
+                            background: '#1B8B09',
+                          }}
+                        />
+                        <Typography.Text style={{ color: '#1B8B09' }}>
+                          Good 95-100
+                        </Typography.Text>
+                      </>
+                      <>
+                        <div
+                          style={{
+                            width: 10,
+                            height: 10,
+                            background: '#FBCA6E',
+                          }}
+                        />
+                        <Typography.Text style={{ color: '#FBCA6E' }}>
+                          FAIR 71-94
+                        </Typography.Text>
+                      </>
+                      <>
+                        <div
+                          style={{
+                            width: 10,
+                            height: 10,
+                            background: '#D93A2F',
+                          }}
+                        />
+                        <Typography.Text style={{ color: '#D93A2F' }}>
+                          POOR 0-70
+                        </Typography.Text>
+                      </>
+                    </Space>
+                    <Space
+                      style={{
+                        marginTop: 30,
+                        marginLeft: 'auto',
+                        marginRight: 0,
+                      }}
+                    >
+                      <Checkbox>Don't show again</Checkbox>
+                      <a style={{ marginLeft: 'auto', marginRight: 0 }}>
+                        LEARN MORE
+                      </a>
+                    </Space>
+                  </div>
+                </>
+              }
+              type="info"
+              closable
+            />
+          </div>
           <Card
             title={
               <div
@@ -221,7 +235,7 @@ class Monitor extends Component<MonitorProps> {
             style={{ marginTop: 12 }}
           >
             <Row gutter={24}>
-              {cardData.map((item) => (
+              {cardData.map((item, index) => (
                 <Col
                   xl={6}
                   lg={24}
@@ -257,11 +271,13 @@ class Monitor extends Component<MonitorProps> {
                     style={{ height: 320, cursor: 'pointer' }}
                     className={styles.pieCard}
                     onClick={() => {
-                      window.location.href = '/health/detail';
+                      if (index < 2) {
+                        window.location.href = '/health/detail';
+                      }
                     }}
                   >
                     <Row>
-                      <Col span={12}>
+                      <Col span={10}>
                         <div style={{ textAlign: 'center' }}>
                           <Typography.Text type="secondary">
                             Health Score
@@ -274,25 +290,25 @@ class Monitor extends Component<MonitorProps> {
                               style={{
                                 color:
                                   item.healthScore < 80
-                                    ? '#CE1126'
+                                    ? '#F2AF00'
                                     : item.healthScore >= 95
                                     ? '#6EA204'
-                                    : '#F2AF00',
+                                    : '#ff5353',
                               }}
                             >
                               {item.healthScore < 80
-                                ? 'POOR'
+                                ? 'FAIR'
                                 : item.healthScore >= 95
                                 ? 'GOOD'
-                                : 'FAIR'}
+                                : 'POOR'}
                             </Typography.Text>
                           }
                           color={
                             item.healthScore < 80
-                              ? '#CE1126'
+                              ? '#F2AF00'
                               : item.healthScore >= 95
                               ? '#6EA204'
-                              : '#F2AF00'
+                              : '#ff5353'
                           }
                           percent={item.healthScore}
                           total={
@@ -301,10 +317,10 @@ class Monitor extends Component<MonitorProps> {
                               style={{
                                 color:
                                   item.healthScore < 80
-                                    ? '#CE1126'
+                                    ? '#F2AF00'
                                     : item.healthScore >= 95
                                     ? '#6EA204'
-                                    : '#F2AF00',
+                                    : '#ff5353',
                               }}
                             >
                               {item.healthScore}
@@ -315,161 +331,173 @@ class Monitor extends Component<MonitorProps> {
                           lineWidth={10}
                         />
                       </Col>
-                      <Col span={12}>
+                      <Col span={14}>
                         <div>
                           <Statistic
                             title="Issues"
                             value={item.healthIssueCount}
                             style={{ marginBottom: 80 }}
                           />
-                          <Space>
-                            <Tooltip
-                              placement="bottomRight"
-                              title={
-                                <Statistic
-                                  title="Component Issues"
-                                  value={item.systemHealthIssueCount}
+                          <div style={{ display: 'flex' }}>
+                            <div style={{ marginRight: 8 }}>
+                              <Tooltip
+                                placement="bottomRight"
+                                title={
+                                  <Statistic
+                                    title="Component Issues"
+                                    value={item.systemHealthIssueCount}
+                                  />
+                                }
+                                color="white"
+                              >
+                                <ComponentIssueIcon
+                                  style={{ color: '#6EA201' }}
                                 />
-                              }
-                              color="white"
-                            >
-                              <ComponentIssueIcon
-                                style={{ color: '#0076CE' }}
-                              />
-                              {item.systemHealthIssueCount == 0 && (
-                                <CheckOutlined style={{ color: '#77A814' }} />
-                              )}
-                              {item.systemHealthIssueCount != 0 && (
-                                <span
-                                  style={{
-                                    color:
-                                      item.healthScore < 80
-                                        ? '#CE1126'
-                                        : item.healthScore >= 95
-                                        ? '#6EA204'
-                                        : '#F2AF00',
-                                  }}
-                                >
-                                  {item.systemHealthImpact}
-                                </span>
-                              )}
-                            </Tooltip>
-                            <Tooltip
-                              placement="bottomRight"
-                              title={
-                                <Statistic
-                                  title="Configuration Issues"
-                                  value={item.configurationIssueCount}
+                                {item.systemHealthIssueCount == 0 && (
+                                  <CheckOutlined style={{ color: '#77A814' }} />
+                                )}
+                                {item.systemHealthIssueCount != 0 && (
+                                  <div
+                                    style={{
+                                      color:
+                                        item.healthScore < 80
+                                          ? '#ff5353'
+                                          : item.healthScore >= 95
+                                          ? '#6EA204'
+                                          : '#F2AF00',
+                                    }}
+                                  >
+                                    {item.systemHealthImpact}
+                                  </div>
+                                )}
+                              </Tooltip>
+                            </div>
+                            <div style={{ marginRight: 8 }}>
+                              <Tooltip
+                                placement="bottomRight"
+                                title={
+                                  <Statistic
+                                    title="Configuration Issues"
+                                    value={item.configurationIssueCount}
+                                  />
+                                }
+                                color="white"
+                              >
+                                <ConfigurationIssueIcon
+                                  style={{ color: '#6EA201' }}
                                 />
-                              }
-                              color="white"
-                            >
-                              <ConfigurationIssueIcon
-                                style={{ color: '#0076CE' }}
-                              />
-                              {item.configurationIssueCount == 0 && (
-                                <CheckOutlined style={{ color: '#77A814' }} />
-                              )}
-                              {item.configurationIssueCount != 0 && (
-                                <span
-                                  style={{
-                                    color:
-                                      item.healthScore < 80
-                                        ? '#CE1126'
-                                        : item.healthScore >= 95
-                                        ? '#6EA204'
-                                        : '#F2AF00',
-                                  }}
-                                >
-                                  {item.configurationImpact}
-                                </span>
-                              )}
-                            </Tooltip>
-                            <Tooltip
-                              placement="bottomRight"
-                              title={
-                                <Statistic
-                                  title="Capacity Issues"
-                                  value={item.capacityIssueCount}
+                                {item.configurationIssueCount == 0 && (
+                                  <CheckOutlined style={{ color: '#77A814' }} />
+                                )}
+                                {item.configurationIssueCount != 0 && (
+                                  <div
+                                    style={{
+                                      color:
+                                        item.healthScore < 80
+                                          ? '#ff5353'
+                                          : item.healthScore >= 95
+                                          ? '#6EA204'
+                                          : '#F2AF00',
+                                    }}
+                                  >
+                                    {item.configurationImpact}
+                                  </div>
+                                )}
+                              </Tooltip>
+                            </div>
+                            <div style={{ marginRight: 8 }}>
+                              <Tooltip
+                                placement="bottomRight"
+                                title={
+                                  <Statistic
+                                    title="Capacity Issues"
+                                    value={item.capacityIssueCount}
+                                  />
+                                }
+                                color="white"
+                              >
+                                <CapacityIssueIcon
+                                  style={{ color: '#6EA201' }}
                                 />
-                              }
-                              color="white"
-                            >
-                              <CapacityIssueIcon style={{ color: '#0076CE' }} />
 
-                              {item.capacityIssueCount == 0 && (
-                                <CheckOutlined style={{ color: '#77A814' }} />
-                              )}
-                              {item.capacityIssueCount != 0 && (
-                                <span
-                                  style={{
-                                    color:
-                                      item.healthScore < 80
-                                        ? '#CE1126'
-                                        : item.healthScore >= 95
-                                        ? '#6EA204'
-                                        : '#F2AF00',
-                                  }}
-                                >
-                                  {item.capacityImpact}
-                                </span>
-                              )}
-                            </Tooltip>
-                            <Tooltip
-                              placement="bottomRight"
-                              title={
-                                <Statistic
-                                  title="Performance Issues"
-                                  value={item.performanceIssueCount}
+                                {item.capacityIssueCount == 0 && (
+                                  <CheckOutlined style={{ color: '#77A814' }} />
+                                )}
+                                {item.capacityIssueCount != 0 && (
+                                  <div
+                                    style={{
+                                      color:
+                                        item.healthScore < 80
+                                          ? '#ff5353'
+                                          : item.healthScore >= 95
+                                          ? '#6EA204'
+                                          : '#F2AF00',
+                                    }}
+                                  >
+                                    {item.capacityImpact}
+                                  </div>
+                                )}
+                              </Tooltip>
+                            </div>
+                            <div style={{ marginRight: 8 }}>
+                              <Tooltip
+                                placement="bottomRight"
+                                title={
+                                  <Statistic
+                                    title="Performance Issues"
+                                    value={item.performanceIssueCount}
+                                  />
+                                }
+                                color="white"
+                              >
+                                <PerformanceIssueIcon
+                                  style={{ color: '#6EA201' }}
                                 />
-                              }
-                              color="white"
-                            >
-                              <PerformanceIssueIcon
-                                style={{ color: '#0076CE' }}
-                              />
 
-                              {item.performanceIssueCount == 0 && (
-                                <CheckOutlined style={{ color: '#77A814' }} />
-                              )}
-                              {item.performanceIssueCount != 0 && (
-                                <span
-                                  style={{
-                                    color:
-                                      item.healthScore < 80
-                                        ? '#CE1126'
-                                        : item.healthScore >= 95
-                                        ? '#6EA204'
-                                        : '#F2AF00',
-                                  }}
-                                >
-                                  {item.performanceImpact}
-                                </span>
-                              )}
-                            </Tooltip>
-                            <Tooltip
-                              placement="bottomRight"
-                              title={
-                                <Statistic
-                                  title="Data Protection Issues"
-                                  value={item.dataProtectionIssueCount}
+                                {item.performanceIssueCount == 0 && (
+                                  <CheckOutlined style={{ color: '#77A814' }} />
+                                )}
+                                {item.performanceIssueCount != 0 && (
+                                  <div
+                                    style={{
+                                      color:
+                                        item.healthScore < 80
+                                          ? '#ff5353'
+                                          : item.healthScore >= 95
+                                          ? '#6EA204'
+                                          : '#F2AF00',
+                                    }}
+                                  >
+                                    {item.performanceImpact}
+                                  </div>
+                                )}
+                              </Tooltip>
+                            </div>
+                            <div style={{ marginRight: 0 }}>
+                              <Tooltip
+                                placement="bottomRight"
+                                title={
+                                  <Statistic
+                                    title="Data Protection Issues"
+                                    value={item.dataProtectionIssueCount}
+                                  />
+                                }
+                                color="white"
+                              >
+                                <DataProtectionIssueIcon
+                                  style={{ color: '#6EA201' }}
                                 />
-                              }
-                              color="white"
-                            >
-                              <DataProtectionIssueIcon
-                                style={{ color: '#0076CE' }}
-                              />
-                              {item.dataProtectionIssueCount == 0 && (
-                                <CheckOutlined style={{ color: '#77A814' }} />
-                              )}
-                              {item.dataProtectionIssueCount != 0 && (
-                                <span style={{ color: 'red' }}>
-                                  {item.dataProtectionImpact}
-                                </span>
-                              )}
-                            </Tooltip>
-                          </Space>
+                                {item.dataProtectionIssueCount == 0 && (
+                                  <CheckOutlined style={{ color: '#77A814' }} />
+                                )}
+                                {item.dataProtectionIssueCount != 0 && (
+                                  <div style={{ color: 'red' }}>
+                                    {item.dataProtectionImpact}
+                                  </div>
+                                )}
+                              </Tooltip>
+                            </div>
+                          </div>
                         </div>
                       </Col>
                     </Row>
