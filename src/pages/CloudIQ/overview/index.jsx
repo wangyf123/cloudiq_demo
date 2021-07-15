@@ -6,6 +6,7 @@ import {
   CloseCircleFilled,
   DownOutlined,
 } from '@ant-design/icons';
+import signal from '@/assets/signal.png';
 import Doubleaxes from '../components/Charts/Doubleaxes';
 import lineChart from '../../../../public/line-chart.png';
 
@@ -65,18 +66,40 @@ const Overview = () => {
                 <DownOutlined />
               </div>
             </div>
-            <div className="overview-content--collapse-neck">
-              <div className="overview-content--collapse-neck-badge">
-                <Text style={{ marginRight: 8 }}>POOR</Text>
+            <div
+              className="overview-content--collapse-neck"
+              style={{ background: '#ffffff' }}
+            >
+              <div
+                className="overview-content--collapse-neck-badge"
+                style={{ flexDirection: 'column' }}
+              >
                 <div className="overview-content--collapse-neck-round">6</div>
+                <Text style={{ marginRight: 8 }}>POOR</Text>
               </div>
-              <div className="overview-content--collapse-neck-badge">
-                <Text style={{ marginRight: 8 }}>POOR</Text>
-                <div className="overview-content--collapse-neck-round">6</div>
+              <div
+                className="overview-content--collapse-neck-badge"
+                style={{ flexDirection: 'column' }}
+              >
+                <div
+                  className="overview-content--collapse-neck-round"
+                  style={{ background: '#F9AF1F' }}
+                >
+                  9
+                </div>
+                <Text style={{ marginRight: 8 }}>FAIR</Text>
               </div>
-              <div className="overview-content--collapse-neck-badge">
-                <Text style={{ marginRight: 8 }}>POOR</Text>
-                <div className="overview-content--collapse-neck-round">6</div>
+              <div
+                className="overview-content--collapse-neck-badge"
+                style={{ flexDirection: 'column' }}
+              >
+                <div
+                  className="overview-content--collapse-neck-round"
+                  style={{ background: '#415706', width: 23, borderRadius: 10 }}
+                >
+                  23
+                </div>
+                <Text style={{ marginRight: 8 }}>GOOD</Text>
               </div>
             </div>
             <div className="overview-content--collapse-footer">
@@ -155,7 +178,7 @@ const Overview = () => {
             </div>
             <div className="overview-content--collapse-neck">
               <div className="overview-content--collapse-neck-badge">
-                <Text>3 Imminent</Text>
+                <Text style={{ color: '#0672CB' }}>3 Imminent</Text>
               </div>
               <div className="overview-content--collapse-neck-badge">
                 <Text>1 Full</Text>
@@ -309,19 +332,47 @@ const Overview = () => {
             >
               <div className="overview-content--collapse-footer-rhino">
                 <div>
+                  <img src={signal} style={{ height: 24 }} />
                   <Text type="danger">High</Text>
                 </div>
                 <div>
-                  <Text type="secondary">High 1</Text>
-                  <Text>Medium1</Text>
+                  <div style={{ paddingLeft: 8, borderLeft: '2px solid red' }}>
+                    <div>
+                      <Text type="secondary">High 1</Text>
+                    </div>
+                    <div>
+                      <Text>Medium1</Text>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <Text type="secondary">8 Issues</Text>
-                  <Text>1 Last 24</Text>
-                  <Text>Hours</Text>
+                  <div
+                    style={{ borderLeft: '2px solid #eeeeee', paddingLeft: 24 }}
+                  >
+                    <div>
+                      <Text type="secondary">8 Issues</Text>
+                    </div>
+                    <div>
+                      <Text>1 Last 24</Text>
+                    </div>
+                    <div>
+                      <Text>Hours</Text>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="overview-content--collapse-footer-rhino">
+              <div
+                className="overview-content--collapse-header"
+                style={{
+                  background: '#F5F5F5',
+                }}
+              >
+                <Title level={5}>System Alerts</Title>
+              </div>
+              <div
+                className="overview-content--collapse-footer-rhino"
+                style={{ border: 'none' }}
+              >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <CloseCircleFilled
@@ -345,9 +396,10 @@ const Overview = () => {
                   height: 37,
                   lineHeight: '37px',
                   fontSize: 16,
-                  textAlign: 'center',
+                  textAlign: 'left',
                   color: '#0672cb',
                   cursor: 'pointer',
+                  paddingLeft: 12,
                 }}
               >
                 GO TO AlERTS
@@ -356,12 +408,18 @@ const Overview = () => {
           </div>
 
           <div className="overview-content--collapse" style={{ marginTop: 13 }}>
-            <div className="overview-content--collapse-header">
+            <div
+              className="overview-content--collapse-header"
+              style={{
+                background: '#F5F5F5',
+                marginBottom: 12,
+              }}
+            >
               <Title level={5}>System Needing Updates</Title>
             </div>
             <div className="overview-content--collapse-neck">
               <div className="overview-content--collapse-neck-badge">
-                <Text>3 Imminent</Text>
+                <Text style={{ color: '#0672CB' }}>3 Imminent</Text>
               </div>
               <div className="overview-content--collapse-neck-badge">
                 <Text>1 Full</Text>
@@ -429,7 +487,10 @@ const Overview = () => {
                 </div>
                 <div className="overview-content--collapse-footer-body">
                   <div className="overview-content--collapse-footer-body-item">
-                    <div className="overview-content--collapse-footer-body-item-left">
+                    <div
+                      className="overview-content--collapse-footer-body-item-left"
+                      style={{ paddingRight: 0 }}
+                    >
                       <Text style={{ color: '#0672CB' }}>Production</Text>
                       <Text>Unity 650F</Text>
                       <Text>FCNCH0972C32F1 UNITY</Text>
@@ -453,28 +514,39 @@ const Overview = () => {
                     >
                       <Text>19.0 TB (34.35%)</Text>
                       <div
+                        className="overview-progress"
                         style={{
-                          height: 20,
-                          width: 80,
-                          background: '#5AD8A6',
-                          float: 'right',
                           marginTop: 47,
                         }}
-                      ></div>
+                      >
+                        <div
+                          style={{
+                            height: 20,
+                            width: 80,
+                            background: '#5AD8A6',
+                            float: 'right',
+                          }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
                   <div className="overview-content--collapse-footer-body-item">
-                    <div className="overview-content--collapse-footer-body-item-left">
+                    <div
+                      className="overview-content--collapse-footer-body-item-left"
+                      style={{ paddingRight: 0 }}
+                    >
                       <Text style={{ color: '#0672CB' }}>Market Research</Text>
                       <Text>Unity XT 880F</Text>
                       <Text>FCNCH0972C32F1 UNITY</Text>
-                      <div
-                        style={{
-                          height: 20,
-                          width: '50%',
-                          background: '#5B8FF9',
-                        }}
-                      ></div>
+                      <div className="overview-progress">
+                        <div
+                          style={{
+                            height: 20,
+                            width: '50%',
+                            background: '#5B8FF9',
+                          }}
+                        ></div>
+                      </div>
                     </div>
                     <div
                       className="overview-content--collapse-footer-body-item-right"
@@ -487,22 +559,43 @@ const Overview = () => {
                     >
                       <Text>7.0 TB (27%)</Text>
                       <div
+                        className="overview-progress"
                         style={{
-                          height: 20,
-                          width: '100%',
-                          background: '#5AD8A6',
-                          float: 'right',
                           marginTop: 47,
                         }}
-                      ></div>
+                      >
+                        <div
+                          style={{
+                            height: 20,
+                            width: '100%',
+                            background: '#5AD8A6',
+                            float: 'right',
+                          }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
                   <div className="overview-content--collapse-footer-body-item">
-                    <div className="overview-content--collapse-footer-body-item-left">
+                    <div
+                      className="overview-content--collapse-footer-body-item-left"
+                      style={{ paddingRight: 0 }}
+                    >
                       <Text style={{ color: '#0672CB' }}>
                         Business Analytics
                       </Text>
                       <Text>SC7020F 95148 SC</Text>
+                      <div
+                        className="overview-progress"
+                        style={{ marginTop: 21 }}
+                      >
+                        <div
+                          style={{
+                            height: 20,
+                            width: '50%',
+                            background: '#5B8FF9',
+                          }}
+                        ></div>
+                      </div>
                     </div>
                     <div
                       className="overview-content--collapse-footer-body-item-right"
@@ -515,14 +608,20 @@ const Overview = () => {
                     >
                       <Text>7.61 TB (7.6%)</Text>
                       <div
+                        className="overview-progress"
                         style={{
-                          height: 20,
-                          width: '30%',
-                          background: '#5AD8A6',
-                          float: 'right',
                           marginTop: 47,
                         }}
-                      ></div>
+                      >
+                        <div
+                          style={{
+                            height: 20,
+                            width: '30%',
+                            background: '#5AD8A6',
+                            float: 'right',
+                          }}
+                        ></div>
+                      </div>
                     </div>
                   </div>
                 </div>
