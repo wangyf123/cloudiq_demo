@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import type { AdvancedProfileData } from './data.d';
 import styles from './style.less';
+import ChartContainer from './components/ChartContainer';
 import OfflineDataBack from '../components/OfflineDataBack';
 import DemoColumn from './components/DemoColumn';
 import PerformanceColumn from './components/PerformanceColumn';
@@ -660,43 +661,41 @@ class Advanced extends Component<
           <div style={{ textAlign: 'right' }}>
             Viewing data from the Last 7 days
           </div>
-          <Typography.Title level={5}>Latency</Typography.Title>
-          <PerformanceColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            IOPS
-          </Typography.Title>
-          <IOPSColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            Bandwidth
-          </Typography.Title>
-          <BandwidthColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            Client
-          </Typography.Title>
-          <ClientColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            CPU
-          </Typography.Title>
-          <CPUColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            Protocol Latency
-          </Typography.Title>
-          <ProtocolLatencyColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            Protocol IOPS
-          </Typography.Title>
-          <ProtocolIOPSColumn />
-
-          <Typography.Title style={{ marginTop: 50 }} level={5}>
-            Protocol Bandwidth
-          </Typography.Title>
-          <ProtocolBandwidthColumn />
+          <ChartContainer title="Latency" checkboxes={['Latency']}>
+            <PerformanceColumn unit={'ms'} />
+          </ChartContainer>
+          <ChartContainer title="IOPS" checkboxes={['IOPS']}>
+            <PerformanceColumn unit={'IOPS'} />
+          </ChartContainer>
+          <ChartContainer title="Bandwidth" checkboxes={['Bandwidth']}>
+            <PerformanceColumn unit={'MBpS'} />
+          </ChartContainer>
+          <ChartContainer title="Client" checkboxes={['Client']}>
+            <PerformanceColumn unit={'client(s)'} />
+          </ChartContainer>
+          <ChartContainer title="CPU" checkboxes={['CPU']}>
+            <PerformanceColumn unit={'%'} />
+          </ChartContainer>
+          <ChartContainer
+            title="Protocol: Latency"
+            checkboxes={['nfs3', 'nfs4', 's3', 'smb1', 'smb2']}
+          >
+            <ProtocolLatencyColumn />
+          </ChartContainer>
+          <ChartContainer
+            title="Protocol: IOPS"
+            metric="Protocol"
+            checkboxes={['nfs3', 'nfs4', 's3', 'smb1', 'smb2']}
+          >
+            <ProtocolLatencyColumn />
+          </ChartContainer>
+          <ChartContainer
+            title="Protocol: Bandwidth"
+            metric="Protocol"
+            checkboxes={['nfs3', 'nfs4', 's3', 'smb1', 'smb2']}
+          >
+            <ProtocolLatencyColumn />
+          </ChartContainer>
         </Card>
       ),
     };
