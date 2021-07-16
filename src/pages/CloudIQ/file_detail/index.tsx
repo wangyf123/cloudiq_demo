@@ -1,19 +1,14 @@
-import {
-  Space,
-  Select,
-  Row,
-  Col,
-  Card,
-  Typography,
-  Divider,
-  Descriptions,
-  Table,
-} from 'antd';
+import { Row, Col, Card, Typography, Divider, Descriptions, Table } from 'antd';
 import { GridContent, PageContainer } from '@ant-design/pro-layout';
 import React, { Component } from 'react';
 import { Pie } from './components/Charts';
 import type { Dispatch } from 'umi';
 import { connect } from 'umi';
+import {
+  PictureOutlined,
+  DatabaseOutlined,
+  BarChartOutlined,
+} from '@ant-design/icons';
 import type { AdvancedProfileData } from './data.d';
 import styles from './style.less';
 import OfflineDataBack from '../components/OfflineDataBack';
@@ -23,7 +18,6 @@ import IOPSColumn from './components/IOPSColumn';
 import BandwidthColumn from './components/BandwidthColumn';
 import ClientColumn from './components/ClientColumn';
 import CPUColumn from './components/CPUColumn';
-import DemoPie from './components/DemoPie';
 
 import ProtocolLatencyColumn from './components/ProtocolLatencyColumn';
 import ProtocolIOPSColumn from './components/ProtocolIOPSColumn';
@@ -56,19 +50,39 @@ for (let i = 0; i < 10; i += 1) {
 const operationTabList = [
   {
     key: 'tab1',
-    tab: 'Health Score',
+    tab: (
+      <div>
+        <PictureOutlined />
+        Health Score
+      </div>
+    ),
   },
   {
     key: 'tab2',
-    tab: 'Configuration',
+    tab: (
+      <div>
+        <DatabaseOutlined />
+        Configuration
+      </div>
+    ),
   },
   {
     key: 'tab3',
-    tab: 'Capacity',
+    tab: (
+      <div>
+        <DatabaseOutlined />
+        Capacity
+      </div>
+    ),
   },
   {
     key: 'tab4',
-    tab: 'Performance',
+    tab: (
+      <div>
+        <BarChartOutlined />
+        Performance
+      </div>
+    ),
   },
 ];
 
@@ -216,9 +230,30 @@ const capacityColumns = [
 ];
 
 const capacityData = [
-  { subscription: 'Node_Pool_1', identifier: 1,  used: '36.9 TB', free: '40 TB', usable: '76.9.0 TB', demand_used: '20%' },
-  { subscription: 'Node_Pool_2', identifier: 2,  used: '36.9 TB', free: '40 TB', usable: '76.9.0 TB', demand_used: '20%' },
-  { subscription: 'Node_Pool_3', identifier: 3,  used: '36.9 TB', free: '40 TB', usable: '76.9.0 TB', demand_used: '20%' },
+  {
+    subscription: 'Node_Pool_1',
+    identifier: 1,
+    used: '36.9 TB',
+    free: '40 TB',
+    usable: '76.9.0 TB',
+    demand_used: '20%',
+  },
+  {
+    subscription: 'Node_Pool_2',
+    identifier: 2,
+    used: '36.9 TB',
+    free: '40 TB',
+    usable: '76.9.0 TB',
+    demand_used: '20%',
+  },
+  {
+    subscription: 'Node_Pool_3',
+    identifier: 3,
+    used: '36.9 TB',
+    free: '40 TB',
+    usable: '76.9.0 TB',
+    demand_used: '20%',
+  },
 ];
 
 const columns = [
@@ -231,10 +266,7 @@ const columns = [
     title: 'Subscriptions',
     dataIndex: 'subscriptions',
     key: 'host_group_name',
-      render: (_, record) => [
-        <a>{record.subscriptions}</a>,
-      ],
-
+    render: (_, record) => [<a>{record.subscriptions}</a>],
   },
 ];
 
@@ -245,7 +277,11 @@ interface AdvancedState {
 }
 
 class Advanced extends Component<
-  { loading: boolean; cloudIQFileDetail: AdvancedProfileData; dispatch: Dispatch },
+  {
+    loading: boolean;
+    cloudIQFileDetail: AdvancedProfileData;
+    dispatch: Dispatch;
+  },
   AdvancedState
 > {
   public state: AdvancedState = {
@@ -283,19 +319,19 @@ class Advanced extends Component<
         id:
           'POWERSTORE-APEX_Block_Boston__HOST__f06b4f6b-c581-4dce-8faa-e5e2c2a57911',
         name: 'Node_Pool_1',
-        subscriptions: 'Tier 1 File Service'
+        subscriptions: 'Tier 1 File Service',
       },
       {
         id:
           'POWERSTORE-APEX_Block_Boston__HOST__f06b4f6b-c581-4dce-8faa-e5e2c2a57912',
-        name: 'Node_Pool_2', 
-        subscriptions: 'Tier 2 File Service'
+        name: 'Node_Pool_2',
+        subscriptions: 'Tier 2 File Service',
       },
-      { 
+      {
         id:
           'POWERSTORE-APEX_Block_Boston__HOST__f06b4f6b-c581-4dce-8faa-e5e2c2a57913',
-        name: 'Node_Pool_3', 
-        subscriptions: 'Tier 3 File Service'
+        name: 'Node_Pool_3',
+        subscriptions: 'Tier 3 File Service',
       },
     ];
 
@@ -451,205 +487,216 @@ class Advanced extends Component<
 
     const configurationContentList = {
       key1: (
-<Table
-  pagination={false}
-  loading={loading}
-  dataSource={advancedOperation2}
-  columns={columns}
-/>
-),
-key2: (
-<Table
-  pagination={false}
-  loading={loading}
-  dataSource={configurationStorageData}
-  columns={configurationStorageColumns}
-/>
-),
-key3: (
-<Table
-  pagination={false}
-  loading={loading}
-  dataSource={configurationVirtualMachineData}
-  columns={configurationVirtualMachineColumns}
-/>
-),
-key4: (
-<Table
-  pagination={false}
-  loading={loading}
-  dataSource={configurationStorageContainerData}
-  columns={configurationStorageColumns}
-/>
-),
-};
+        <Table
+          pagination={false}
+          loading={loading}
+          dataSource={advancedOperation2}
+          columns={columns}
+        />
+      ),
+      key2: (
+        <Table
+          pagination={false}
+          loading={loading}
+          dataSource={configurationStorageData}
+          columns={configurationStorageColumns}
+        />
+      ),
+      key3: (
+        <Table
+          pagination={false}
+          loading={loading}
+          dataSource={configurationVirtualMachineData}
+          columns={configurationVirtualMachineColumns}
+        />
+      ),
+      key4: (
+        <Table
+          pagination={false}
+          loading={loading}
+          dataSource={configurationStorageContainerData}
+          columns={configurationStorageColumns}
+        />
+      ),
+    };
 
-const contentList = {
-tab1: (
-<>
-  <Typography.Title level={3}>
-    Capacity is the top health check category impacting
-    APEX-File-Austin's health score.
-  </Typography.Title>
-  <div style={{ width: 170, marginLeft: -30 }}>
-    <Pie
-      animate={false}
-      color="#6EA204"
-      percent={95}
-      total={
-	<Typography.Title level={1} style={{ color: '#6EA204' }}>
-	  {queryString.parse(window.location.search).name ==
-	  'APEX-File-Austin'
-	    ? 100
-	    : 95}
-	</Typography.Title>
-      }
-      subTitle={
-	<Typography.Text strong={true} style={{ color: '#6EA204' }}>
-	  GOOD
-	</Typography.Text>
-      }
-      style={{ marginTop: 20 }}
-      height={150}
-      lineWidth={8}
-    />
-  </div>
+    const contentList = {
+      tab1: (
+        <>
+          <Typography.Title level={3}>
+            Capacity is the top health check category impacting
+            APEX-File-Austin's health score.
+          </Typography.Title>
+          <div style={{ width: 170, marginLeft: -30 }}>
+            <Pie
+              animate={false}
+              color="#6EA204"
+              percent={95}
+              total={
+                <Typography.Title level={1} style={{ color: '#6EA204' }}>
+                  {queryString.parse(window.location.search).name ==
+                  'APEX-File-Austin'
+                    ? 100
+                    : 95}
+                </Typography.Title>
+              }
+              subTitle={
+                <Typography.Text strong={true} style={{ color: '#6EA204' }}>
+                  GOOD
+                </Typography.Text>
+              }
+              style={{ marginTop: 20 }}
+              height={150}
+              lineWidth={8}
+            />
+          </div>
 
-  <Typography.Title level={4}>Health Issues</Typography.Title>
-  <Row title="Health Issues" gutter={24}>
-    <Col span={6}>
-      <Table
-	bordered
-	pagination={false}
-	loading={loading}
-	dataSource={issueData}
-	columns={issueColumns}
-      />
-    </Col>
-    <Col span={18}>
-      <Card
-	title="Capacity"
-	headStyle={{ background: '#6EA204', color: '#ffffff' }}
-	style={{ borderRadius: 4 }}
-      >
-	<Typography.Paragraph>
-	  about 6 hours ago The Cluster 'FNM00183501337' is predicted to
-	  run out of space within a quarter.
-	</Typography.Paragraph>
-	<Typography.Text type="secondary">-5</Typography.Text>
-	<Divider />
-	<Typography.Paragraph>Resolution:</Typography.Paragraph>
-	<Typography.Text type="secondary">
-	  This information has been sent to the DTMS Account Team, and
-	  they will reach out to you should any action be required.
-	</Typography.Text>
-      </Card>
-    </Col>
-  </Row>
-  <OfflineDataBack offlineChartData={offlineChartData} />
-</>
-),
-tab2: (
-<>
-  <Descriptions style={{ marginLeft: 20, marginTop: 20 }} column={2}>
-    <Descriptions.Item label="Site">ACME Branch Office</Descriptions.Item>
-    <Descriptions.Item label="Last Contact Time">about 1 hour ago</Descriptions.Item>
-    <Descriptions.Item label="Location">Hopkinton, MA</Descriptions.Item>
-  </Descriptions>
+          <Typography.Title level={4}>Health Issues</Typography.Title>
+          <Row title="Health Issues" gutter={24}>
+            <Col span={6}>
+              <Table
+                bordered
+                pagination={false}
+                loading={loading}
+                dataSource={issueData}
+                columns={issueColumns}
+              />
+            </Col>
+            <Col span={18}>
+              <Card
+                title="Capacity"
+                headStyle={{ background: '#6EA204', color: '#ffffff' }}
+                style={{ borderRadius: 4 }}
+              >
+                <Typography.Paragraph>
+                  about 6 hours ago The Cluster 'FNM00183501337' is predicted to
+                  run out of space within a quarter.
+                </Typography.Paragraph>
+                <Typography.Text type="secondary">-5</Typography.Text>
+                <Divider />
+                <Typography.Paragraph>Resolution:</Typography.Paragraph>
+                <Typography.Text type="secondary">
+                  This information has been sent to the DTMS Account Team, and
+                  they will reach out to you should any action be required.
+                </Typography.Text>
+              </Card>
+            </Col>
+          </Row>
+          <OfflineDataBack offlineChartData={offlineChartData} />
+        </>
+      ),
+      tab2: (
+        <>
+          <Descriptions style={{ marginLeft: 20, marginTop: 20 }} column={2}>
+            <Descriptions.Item label="Site">
+              ACME Branch Office
+            </Descriptions.Item>
+            <Descriptions.Item label="Last Contact Time">
+              about 1 hour ago
+            </Descriptions.Item>
+            <Descriptions.Item label="Location">
+              Hopkinton, MA
+            </Descriptions.Item>
+          </Descriptions>
 
-<Divider />
+          <Divider />
 
-<Card
-  className={styles.tabsCard}
-  bordered={false}
-  tabList={configurationTabList}
-  onTabChange={this.onConfigurationTabChange}
->
-  {configurationContentList[configurationKey]}
-</Card>
-</>
-),
-tab3: (
-<Card
-  title="Effective Capacity"
-  extra={<a href="#">MANAGE SUBSCRIPTIONS</a>}
->
-  <Row>
-  <Col span={18} style={{ borderRight: '1px solid #DDDDDD'}}>
-  <p style={{ marginButtom: 20, marginRight: 20 }}>Total Usable<span style={{ float: 'right', position: 'relative' }}>230.7 TB</span></p>
-  <DemoColumn />
-  </Col>
-  <Col span={6}>
-  <div style={{marginLeft: 15 }}>On-Demand Capacity Used</div>
-		<Pie
-		  subTitle={
-		    <Typography.Text
-		      strong={true}
-		    >Used</Typography.Text>
-		  }
-		  percent={20}
-		  total="20%"
-		  style={{ marginTop: 20 }}
-		  height={180}
-		  lineWidth={10}
-		/>
-  <div style={{textAlign: 'center' }}>30 TB of 150 TB</div>
+          <Card
+            className={styles.tabsCard}
+            bordered={false}
+            tabList={configurationTabList}
+            onTabChange={this.onConfigurationTabChange}
+          >
+            {configurationContentList[configurationKey]}
+          </Card>
+        </>
+      ),
+      tab3: (
+        <Card
+          title="Effective Capacity"
+          extra={<a href="#">MANAGE SUBSCRIPTIONS</a>}
+        >
+          <Row>
+            <Col span={18} style={{ borderRight: '1px solid #DDDDDD' }}>
+              <p style={{ marginButtom: 20, marginRight: 20 }}>
+                Total Usable
+                <span style={{ float: 'right', position: 'relative' }}>
+                  230.7 TB
+                </span>
+              </p>
+              <DemoColumn />
+            </Col>
+            <Col span={6}>
+              <div style={{ marginLeft: 15 }}>On-Demand Capacity Used</div>
+              <Pie
+                subTitle={<Typography.Text strong={true}>Used</Typography.Text>}
+                percent={20}
+                total="20%"
+                style={{ marginTop: 20 }}
+                height={180}
+                lineWidth={10}
+              />
+              <div style={{ textAlign: 'center' }}>30 TB of 150 TB</div>
+            </Col>
+          </Row>
+          <Divider />
 
-  </Col>
-  </Row>
-  <Divider />
-
-<Card
-  className={styles.tabsCard}
-  bordered={false}
-  tabList={capacityTabList}
->
-
-<Table
-  pagination={false}
-  loading={loading}
-  dataSource={capacityData}
-  columns={capacityColumns}
-/>
-
-        </Card>
-
-
+          <Card
+            className={styles.tabsCard}
+            bordered={false}
+            tabList={capacityTabList}
+          >
+            <Table
+              pagination={false}
+              loading={loading}
+              dataSource={capacityData}
+              columns={capacityColumns}
+            />
+          </Card>
         </Card>
       ),
       tab4: (
-        <Card
-          className={styles.tabsCard}
-          bordered={false}
-        >
+        <Card className={styles.tabsCard} bordered={false}>
+          <div style={{ textAlign: 'right' }}>
+            Viewing data from the Last 7 days
+          </div>
+          <Typography.Title level={5}>Latency</Typography.Title>
+          <PerformanceColumn />
 
-<div style={{ textAlign: 'right' }}>Viewing data from the Last 7 days</div>
-<Typography.Title level={5}>Latency</Typography.Title>
-<PerformanceColumn />
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            IOPS
+          </Typography.Title>
+          <IOPSColumn />
 
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            Bandwidth
+          </Typography.Title>
+          <BandwidthColumn />
 
-<Typography.Title style={{  marginTop: 50 }} level={5}>IOPS</Typography.Title>
-<IOPSColumn />
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            Client
+          </Typography.Title>
+          <ClientColumn />
 
-<Typography.Title style={{  marginTop: 50 }} level={5}>Bandwidth</Typography.Title>
-<BandwidthColumn />
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            CPU
+          </Typography.Title>
+          <CPUColumn />
 
-<Typography.Title style={{  marginTop: 50 }} level={5}>Client</Typography.Title>
-<ClientColumn />
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            Protocol Latency
+          </Typography.Title>
+          <ProtocolLatencyColumn />
 
-<Typography.Title style={{  marginTop: 50 }} level={5}>CPU</Typography.Title>
-<CPUColumn />
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            Protocol IOPS
+          </Typography.Title>
+          <ProtocolIOPSColumn />
 
-<Typography.Title style={{  marginTop: 50 }} level={5}>Protocol Latency</Typography.Title>
-<ProtocolLatencyColumn />
-
-<Typography.Title style={{  marginTop: 50 }} level={5}>Protocol IOPS</Typography.Title>
-<ProtocolIOPSColumn />
-
-<Typography.Title style={{  marginTop: 50 }} level={5}>Protocol Bandwidth</Typography.Title>
-<ProtocolBandwidthColumn />
-
-
+          <Typography.Title style={{ marginTop: 50 }} level={5}>
+            Protocol Bandwidth
+          </Typography.Title>
+          <ProtocolBandwidthColumn />
         </Card>
       ),
     };
@@ -660,7 +707,17 @@ tab3: (
             <Card
               className={styles.tabsCard}
               bordered={false}
+              headStyle={{
+                padding: 0,
+                borderBottom: 'none',
+              }}
               tabList={operationTabList}
+              tabProps={{
+                type: 'card',
+                tabBarStyle: {
+                  background: '#f0f2f5',
+                },
+              }}
               onTabChange={this.onOperationTabChange}
               bodyStyle={{
                 padding: operationKey === 'tab1' ? '24px' : 0,
@@ -673,7 +730,7 @@ tab3: (
       </PageContainer>
     );
   }
-};
+}
 
 export default connect(
   ({

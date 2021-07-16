@@ -272,7 +272,7 @@ class Monitor extends Component<MonitorProps> {
                     className={styles.pieCard}
                     onClick={() => {
                       if (index < 2) {
-                        window.location.href = '/health/detail';
+                        window.location.href = '/health/block_detail';
                       }
                     }}
                   >
