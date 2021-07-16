@@ -51,11 +51,18 @@ const ProtocolLatencyColumn: React.FC = () => {
   groups.forEach((group, index) => {
     dateArr.forEach((date) => {
       subTypes.forEach((subType) => {
+        let value = _.random(100, 400)
+        if (subType === 'neck') {
+          value = 20
+        }
+        if (subType === 'bottom') {
+          value = _.random(100, 500)
+        }
         const temp = {
           date,
           subType: `${subType}${index}`,
           group,
-          value: subType === 'neck' ? 20 : _.random(100, 200),
+          value: value,
         };
         mockData.push(temp);
       });
