@@ -275,8 +275,11 @@ class Pie extends Component<PieProps, PieState> {
               {!!tooltip && <Tooltip showTitle={false} />}
               <Coord type="theta" innerRadius={inner} />
               <Geom
-                style={{ lineWidth, stroke: '#fff' }}
-                tooltip={tooltip ? tooltipFormat : undefined}
+                style={{
+                  lineWidth: 1,
+                  stroke: "#fff"
+                }}
+                tooltip={false}
                 type="intervalStack"
                 position="percent"
                 color={
@@ -285,7 +288,7 @@ class Pie extends Component<PieProps, PieState> {
                     percent || percent === 0 ? formatColor : defaultColors,
                   ] as any
                 }
-                selected={selected}
+                selected={false}
               />
             </Chart>
 

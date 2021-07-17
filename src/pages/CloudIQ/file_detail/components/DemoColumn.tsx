@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Column } from '@ant-design/charts';
+import { Bar } from '@ant-design/charts';
 
-const DemoColumn: React.FC = () => {
+const DemoBar: React.FC = () => {
   var data = [
     {
-      country: 'Used',
-      year: 'Effective Capacity',
-      value: 110.7,
+      year: ' ',
+      value: 30,
+      type: 'Used',
     },
     {
-      country: 'Free',
-      year: 'Effective Capacity',
-      value: 120,
+      year: ' ',
+      value: 52,
+      type: 'Free',
     },
   ];
   var config = {
-    data: data,
-    xField: 'year',
-    yField: 'value',
-    seriesField: 'country',
-    isPercent: false,
+    data: data.reverse(),
     isStack: true,
-    label: {
-      position: 'middle',
-      content: function content(item) {
-        return item.value.toFixed(2) + ' TB';
+    xField: 'value',
+    yField: 'year',
+    seriesField: 'type',
+    padding: [20, 20, 20, 8],
+    legend: {
+      position: 'left-bottom',
+      layout: 'horizontal',
+    },
+    yAxis: false,
+    xAxis: false,
+    tooltip: {
+      formatter: (datum) => {
+        return {
+          name: datum.type,
+          value: `${datum.value}TB (${((datum.value / 98) * 100).toFixed(2)}%)`,
+        };
       },
-      style: { fill: '#fff' },
     },
   };
-  return <Column {...config} />;
+  return <Bar {...config} />;
 };
 
-export default DemoColumn;
+export default DemoBar;

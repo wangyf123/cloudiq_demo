@@ -1,4 +1,13 @@
-import { Row, Col, Card, Typography, Divider, Descriptions, Table } from 'antd';
+import {
+  Row,
+  Col,
+  Card,
+  Typography,
+  Divider,
+  Descriptions,
+  Table,
+  Modal,
+} from 'antd';
 import { GridContent, PageContainer } from '@ant-design/pro-layout';
 import React, { Component } from 'react';
 import { Pie } from './components/Charts';
@@ -8,21 +17,17 @@ import {
   PictureOutlined,
   DatabaseOutlined,
   BarChartOutlined,
+  CloudUploadOutlined,
 } from '@ant-design/icons';
+import logo from '../../../assets/logo.png';
+import up from '../../../assets/up.mp4';
 import type { AdvancedProfileData } from './data.d';
 import styles from './style.less';
 import ChartContainer from './components/ChartContainer';
 import OfflineDataBack from '../components/OfflineDataBack';
 import DemoColumn from './components/DemoColumn';
 import PerformanceColumn from './components/PerformanceColumn';
-import IOPSColumn from './components/IOPSColumn';
-import BandwidthColumn from './components/BandwidthColumn';
-import ClientColumn from './components/ClientColumn';
-import CPUColumn from './components/CPUColumn';
-
 import ProtocolLatencyColumn from './components/ProtocolLatencyColumn';
-import ProtocolIOPSColumn from './components/ProtocolIOPSColumn';
-import ProtocolBandwidthColumn from './components/ProtocolBandwidthColumn';
 
 const queryString = require('query-string');
 
@@ -30,13 +35,6 @@ const configurationTabList = [
   {
     key: 'key1',
     tab: 'NODE POOLS',
-  },
-];
-
-const capacityTabList = [
-  {
-    key: 'capacity1',
-    tab: 'CAPACITY BY SUBSCRIPTION',
   },
 ];
 
@@ -192,6 +190,28 @@ const capacityColumns = [
     title: 'Subscription',
     dataIndex: 'subscription',
     key: 'subscription',
+    render(text) {
+      return (
+        <a
+          onClick={() => {
+            console.log('xxxxxxs');
+            Modal.confirm({
+              title: 'Confirm',
+              width: 800,
+              content: (
+                <div>
+                  <video src={up} autoPlay />
+                </div>
+              ),
+              okText: 'OK',
+              cancelText: 'cancel',
+            });
+          }}
+        >
+          {text}
+        </a>
+      );
+    },
   },
   {
     title: 'Node Pool',
@@ -207,11 +227,36 @@ const capacityColumns = [
     title: 'Used',
     dataIndex: 'used',
     key: 'used',
-  },
-  {
-    title: 'Used',
-    dataIndex: 'used',
-    key: 'used',
+    render(text: string) {
+      return (
+        <div style={{ display: 'flex' }}>
+          <Typography.Text style={{ marginRight: 8 }}>{text}</Typography.Text>
+          <div
+            style={{
+              background: '#82E0AA',
+              height: 20,
+              width: 200,
+              position: 'relative',
+            }}
+          >
+            <div
+              style={{ background: '#458EC1', height: 20, width: '40%' }}
+            ></div>
+            <div
+              style={{
+                position: 'absolute',
+                background: 'rgba(244,227,183, 0.51)',
+                height: 30,
+                right: 0,
+                top: -5,
+                borderLeft: '2px solid #EDAE05',
+                width: '70%',
+              }}
+            ></div>
+          </div>
+        </div>
+      );
+    },
   },
   {
     title: 'Free',
@@ -232,7 +277,8 @@ const capacityColumns = [
 
 const capacityData = [
   {
-    subscription: 'Node_Pool_1',
+    subscription: 'Tier 1 File Se...',
+    pool: 'Node_ Pool_1	1',
     identifier: 1,
     used: '36.9 TB',
     free: '40 TB',
@@ -240,7 +286,8 @@ const capacityData = [
     demand_used: '20%',
   },
   {
-    subscription: 'Node_Pool_2',
+    subscription: 'Tier 1 File Se...',
+    pool: 'Node_ Pool_2	2',
     identifier: 2,
     used: '36.9 TB',
     free: '40 TB',
@@ -248,7 +295,8 @@ const capacityData = [
     demand_used: '20%',
   },
   {
-    subscription: 'Node_Pool_3',
+    subscription: 'Tier 1 File Se...',
+    pool: 'Node_ Pool_3 3',
     identifier: 3,
     used: '36.9 TB',
     free: '40 TB',
@@ -615,19 +663,42 @@ class Advanced extends Component<
       tab3: (
         <Card
           title="Effective Capacity"
-          extra={<a href="#">MANAGE SUBSCRIPTIONS</a>}
+          bodyStyle={{ padding: 0 }}
+          extra={
+            <div>
+              <CloudUploadOutlined
+                style={{ color: '#0672CB', marginRight: 8 }}
+              />
+              <a href="#">MANAGE SUBSCRIPTIONS</a>
+            </div>
+          }
         >
-          <Row>
-            <Col span={18} style={{ borderRight: '1px solid #DDDDDD' }}>
-              <p style={{ marginButtom: 20, marginRight: 20 }}>
+          <div style={{ display: 'flex' }}>
+            <div
+              style={{
+                flex: '1 1 80%',
+                borderRight: '1px solid #eeeeee',
+                padding: 12,
+                paddingLeft: 24,
+              }}
+            >
+              <p style={{ marginRight: 20 }}>
                 Total Usable
                 <span style={{ float: 'right', position: 'relative' }}>
                   230.7 TB
                 </span>
               </p>
-              <DemoColumn />
-            </Col>
-            <Col span={6}>
+              <div
+                style={{
+                  height: 100,
+                  marginTop: -21,
+                  marginLeft: -8,
+                }}
+              >
+                <DemoColumn />
+              </div>
+            </div>
+            <div style={{ flex: '1 1 20%', padding: 12 }}>
               <div style={{ marginLeft: 15 }}>On-Demand Capacity Used</div>
               <Pie
                 subTitle={<Typography.Text strong={true}>Used</Typography.Text>}
@@ -636,24 +707,80 @@ class Advanced extends Component<
                 style={{ marginTop: 20 }}
                 height={180}
                 lineWidth={10}
+                color="#F3AE00"
               />
               <div style={{ textAlign: 'center' }}>30 TB of 150 TB</div>
-            </Col>
-          </Row>
-          <Divider />
-
-          <Card
-            className={styles.tabsCard}
-            bordered={false}
-            tabList={capacityTabList}
+            </div>
+          </div>
+          <div
+            style={{
+              height: 45,
+              borderBottom: '1px solid #eeeeee',
+              borderTop: '1px solid #eeeeee',
+              paddingLeft: 24,
+              paddingRight: 24,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
-            <Table
-              pagination={false}
-              loading={loading}
-              dataSource={capacityData}
-              columns={capacityColumns}
-            />
-          </Card>
+            <Typography.Title level={5} style={{ lineHeight: '45px' }}>
+              CAPACITY BY SUBSCRIPTION
+            </Typography.Title>
+            <div style={{ display: 'flex' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginRight: 8,
+                }}
+              >
+                <div
+                  style={{
+                    background: '#458EC1',
+                    height: 14,
+                    width: 14,
+                    marginRight: 8,
+                  }}
+                ></div>
+                <Typography.Text>Used</Typography.Text>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginRight: 8,
+                }}
+              >
+                <div
+                  style={{
+                    background: '#82E0AA',
+                    height: 14,
+                    width: 14,
+                    marginRight: 8,
+                  }}
+                ></div>
+                <Typography.Text>Free</Typography.Text>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div
+                  style={{
+                    background: '#F4BA2D',
+                    height: 14,
+                    width: 14,
+                    marginRight: 8,
+                  }}
+                ></div>
+                <Typography.Text>OnDemand</Typography.Text>
+              </div>
+            </div>
+          </div>
+          <Table
+            pagination={false}
+            loading={loading}
+            dataSource={capacityData}
+            columns={capacityColumns}
+          />
         </Card>
       ),
       tab4: (
@@ -723,6 +850,7 @@ class Advanced extends Component<
               }}
             >
               {contentList[operationKey]}
+              {/* {contentList['tab3']} */}
             </Card>
           </GridContent>
         </div>
