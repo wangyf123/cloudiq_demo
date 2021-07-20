@@ -36,7 +36,7 @@ const cardData = [
     healthState: { raw: 'GOOD', text: 'Good' },
     systemHealthImpact: 0,
     systemHealthIssueCount: 0,
-    healthScore: 95,
+    healthScore: 100,
     configurationImpact: 0,
     configurationIssueCount: 0,
     capacityImpact: 0,
@@ -45,7 +45,7 @@ const cardData = [
     performanceIssueCount: 0,
     dataProtectionImpact: 0,
     dataProtectionIssueCount: 0,
-    healthIssueCount: 1,
+    healthIssueCount: 0,
   },
   {
     id: 'APEX-File-Austin',
@@ -58,16 +58,16 @@ const cardData = [
     healthState: { raw: 'GOOD', text: 'Good' },
     systemHealthImpact: 0,
     systemHealthIssueCount: 0,
-    healthScore: 100,
-    configurationImpact: 0,
-    configurationIssueCount: 0,
+    healthScore: 95,
+    configurationImpact: -5,
+    configurationIssueCount: 1,
     capacityImpact: 0,
     capacityIssueCount: 0,
     performanceImpact: 0,
     performanceIssueCount: 0,
     dataProtectionImpact: 0,
     dataProtectionIssueCount: 0,
-    healthIssueCount: 0,
+    healthIssueCount: 1,
   },
   {
     id: 'Business Analytics',
@@ -271,8 +271,10 @@ class Monitor extends Component<MonitorProps> {
                     style={{ height: 320, cursor: 'pointer' }}
                     className={styles.pieCard}
                     onClick={() => {
-                      if (index < 2) {
+                      if (cardData[index].name == 'APEX-Block-Boston') { 
                         window.location.href = '/health/block_detail';
+                      }else {
+                        window.location.href = '/health/file_detail';
                       }
                     }}
                   >
