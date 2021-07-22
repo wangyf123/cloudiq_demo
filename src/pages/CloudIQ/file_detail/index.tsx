@@ -28,6 +28,7 @@ import OfflineDataBack from '../components/OfflineDataBack';
 import DemoColumn from './components/DemoColumn';
 import PerformanceColumn from './components/PerformanceColumn';
 import ProtocolLatencyColumn from './components/ProtocolLatencyColumn';
+import defaultSettings from '../../../../config/defaultSettings';
 
 const queryString = require('query-string');
 
@@ -185,6 +186,14 @@ const configurationStorageColumns = [
   },
 ];
 
+const triggerProgress = (flag) => {
+
+  var ws = new WebSocket(defaultSettings.webSocketAPI);
+  ws.onopen = () => ws.send(JSON.stringify({action: 'progress', value: flag}));
+
+
+}
+
 const capacityColumns = [
   {
     title: 'Subscription',
@@ -195,6 +204,7 @@ const capacityColumns = [
         <a
           onClick={() => {
             console.log('xxxxxxs');
+            triggerProgress(true);
             Modal.confirm({
               title: 'Confirm',
               width: 800,
